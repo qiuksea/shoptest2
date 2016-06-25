@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'visitors#index'
+  #get 'store/index'
+  #root to: 'visitors#index'
+  root to:'store#index'
   devise_for :users
   resources :users
 end
