@@ -13,8 +13,12 @@
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
+      <div class="container"><!-- container: fixed width, container-fluid: fill in the whole screen -->
+        <div class="row">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div>
     </main>
   </body>
 </html>
