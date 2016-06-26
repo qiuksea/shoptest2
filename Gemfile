@@ -46,5 +46,6 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-
+# for this project
 gem 'coffee-script-source', '1.8.0' # problem with coffee-script-source 1.10 running on windows
+gem "paperclip", "~> 4.3"

@@ -1,10 +1,24 @@
-<%= simple_form_for(@product) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for([:admin, @product]) do |f| %>
+    <% if @product.errors.present? %>
+        <p><%=  pluralize(@product.errors.count, "error")%> prohibited this product from being saved</p>
+        <ul class="errors">
+          <% @product.errors.full_messages.each do |msg|%>
+              <li><%= msg.html_safe %></li>
+          <% end %>
+        </ul>
+    <% end %>
+    <%= f.input :title %>
+    <%= f.input :description, input_html: {rows: "10", class: "mceEditor"} %>
+    <!-- don't use multiple upload at one time, the server may not handle huge size files  -->
+    <%= f.input :basic_price, as: :string %>
+    <%= f.input :sold_price, as: :string %>
+    <%= f.input :active %>
+    <%=  f.fields_for :product_pictures  do |d|%>
+        <%#= render 'product_picture_fields', f: d %>
+    <% end %>
+    <p><%#= link_to_add_fields 'Add New File', f, :product_pictures %><br /></p>
 
-  <div class="form-inputs">
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
 <% end %>

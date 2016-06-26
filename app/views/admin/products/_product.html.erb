@@ -1,0 +1,11 @@
+<tr id="product-<%=product.id%>">
+  <td><%= link_to product.title, [:admin, product] %></td>
+  <td><%= truncate( sanitize(product.description), length: 30, separator: ' ') %></td>
+  <td><%= number_to_currency(product.basic_price, :locale => 'en-GB')  %></td>
+  <td><%= number_to_currency(product.sold_price, :locale => 'en-GB')  %></td>
+  <td><%= product.active  %></td>
+  <td>
+    <%= link_to 'Edit', edit_admin_product_path(product) %> |
+    <%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' } %>
+  </td>
+</tr>
