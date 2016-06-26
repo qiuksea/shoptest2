@@ -12,9 +12,7 @@
 <div class="col-md-9">
   <% @products.each do |product| %>
       <tr id="product-<%=product.id%>">
-        <td><%= link_to product.title, admin_products_path %></td>
-        <td><%= truncate( sanitize(product.description), length: 30, separator: ' ') %></td>
-        <td><%= number_to_currency(product.basic_price, :locale => 'en-GB')  %></td>
+        <%= render partial: "store/product", locals: {product: product}%>
       </tr>
   <% end %>
 </div>
