@@ -1,10 +1,20 @@
-
-<h3 class="text-center">Products</h3>
-
-<div class="row">
-  <div class="col-xs-6 col-xs-offset-3">
-    <% @products.each do |product| %>
-        <%= render "product_row", product: product, order_item: @order_item %>
-    <% end %>
+<% if notice %>
+    <p id="notice"><%= notice %></p>
+<% end %>
+<div class="col-md-3">
+  <p class="lead">Products</p>
+  <div class="list-group">
+    <a href="#" class="list-group-item active">Category 1</a>
+    <a href="#" class="list-group-item">Category 2</a>
+    <a href="#" class="list-group-item">Category 3</a>
   </div>
+</div>
+<div class="col-md-9">
+  <% @products.each do |product| %>
+      <tr id="product-<%=product.id%>">
+        <td><%= link_to product.title, admin_products_path %></td>
+        <td><%= truncate( sanitize(product.description), length: 30, separator: ' ') %></td>
+        <td><%= number_to_currency(product.basic_price, :locale => 'en-GB')  %></td>
+      </tr>
+  <% end %>
 </div>
