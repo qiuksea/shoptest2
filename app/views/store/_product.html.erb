@@ -8,4 +8,5 @@
     </h4>
     <p><%= truncate( sanitize(product.description), length: 40, separator: ' ') %></p>
   </div>
+  <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
 </div>
