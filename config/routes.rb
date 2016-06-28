@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   #get 'store/index'
   #root to: 'visitors#index'
   root to:'store#index'
+  get '/store/:id', to: 'store#show', as: 'store'
   resources :carts, only: [:show]
   resources :line_items, only: [:create, :update, :destroy]
 
