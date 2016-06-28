@@ -7,6 +7,8 @@ class Product < ActiveRecord::Base
 
   has_many :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
+  validates :title, presence: true
+  validates :basic_price, presence: true
 
   private
    # ensure that there are no line items referencing this product
