@@ -1,18 +1,4 @@
-<p id="notice"><%= notice %></p>
-<h2><%= @product.title %> - <%#= current_user.username %></h2>
-<div>
-  <% @product.product_pictures.each do |picture| %>
-      <%=  display_image_file(picture) %><br />
-  <% end %>
-</div>
-
-<div id="product-<%= @product.id%>">
-  <p><%= @product.description.html_safe %></p>
-  <p>Price: <%= number_to_currency(@product.basic_price, :locale => 'en-GB') %></p>
-  <p>
-    Listed on <%= @product.created_at %> by <%#= @product.user.username %>
-  </p>
-</div>
+<%= render partial: "shared/show", locals: {product: @product} %>
 
 <%= link_to 'Edit', edit_admin_product_path(@product) %> |
 <%= link_to 'Back', admin_products_path %>

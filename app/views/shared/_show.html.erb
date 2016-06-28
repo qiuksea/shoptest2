@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+<h2><%= product.title %> - <%#= current_user.username %></h2>
+<div>
+  <% product.product_pictures.each do |picture| %>
+      <%=  display_image_file(picture) %><br />
+  <% end %>
+</div>
+
+<div id="product-<%= product.id%>">
+  <p><%= product.description.html_safe %></p>
+  <%= display_current_price(product.basic_price, product.sold_price) %>
+  <p>
+    Listed on <%= product.created_at %> by <%#= product.user.username %>
+  </p>
+</div>
+
