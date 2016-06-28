@@ -12,4 +12,9 @@ class Cart < ActiveRecord::Base
     current_item
   end
 
+  def line_items_total
+    line_items.collect { |item| item.valid? ?  item.total_price : 0 }.sum
+    #line_items.to_a.sum { |item| item.total_price }
+  end
+
 end

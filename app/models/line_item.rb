@@ -16,9 +16,9 @@ class LineItem < ActiveRecord::Base
     end
   end
 
-  # def total_price
-  #   unit_price * quantity
-  # end
+  def total_price
+    unit_price * quantity
+  end
 
   private
   def product_present
@@ -35,7 +35,7 @@ class LineItem < ActiveRecord::Base
 
   def finalize
     self[:unit_price] = unit_price
-    #self[:total_price] = quantity * self[:unit_price]
+    self[:total_price] = total_price
   end
 
 end

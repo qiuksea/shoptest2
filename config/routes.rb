@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   #root to: 'visitors#index'
   root to:'store#index'
   get '/store/:id', to: 'store#show', as: 'store'
-  resources :carts, only: [:show]
+  resources :carts, only: [:show, :destroy]
   resources :line_items, only: [:create, :update, :destroy]
 
   devise_for :users
