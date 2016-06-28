@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show]
-  #sinclude CurrentCart
+  #include CurrentCart
   # GET /carts
   # GET /carts.json
   # def index
