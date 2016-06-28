@@ -9,6 +9,7 @@
     <th>Quantity</th>
     <th>Unit Price</th>
     <th>Total Price</th>
+    <th>Action</th>
   </tr>
   <% @line_items.each do |item| %>
       <tr>
@@ -16,6 +17,7 @@
         <td><%= item.quantity %> </td>
         <td><%= number_to_currency(item.unit_price, :locale => 'en-GB') %></td>
         <td><%= number_to_currency(item.total_price, :locale => 'en-GB') %></td>
+        <td><%= link_to "Remove", line_item_path(item), method: :delete, data: {confirm: 'Are you sure?' }%></td>
       </tr>
   <% end %>
   <tr>
