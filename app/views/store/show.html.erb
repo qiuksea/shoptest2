@@ -1,1 +1,18 @@
 <%= render partial: "shared/show", locals: {product: @product} %>
+
+<%#= button_to 'Add to Cart', line_items_path(product_id: @product) %>
+
+<%= form_tag(line_items_path, class: "form-inline") do -%>
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <%= select_tag "product_quantity", options_for_select((1..10).to_a, 1)%>
+      <%= hidden_field_tag 'product_id',  @product.id %>
+      <%= hidden_field_tag 'product_id',  @product.id %>
+      <%= hidden_field_tag 'sold_price',  @product.id %>
+    </div>
+    <div class="form-group">
+      <div class="col-md-3">
+        <%= submit_tag 'Add to Cart', class: "btn btn-success" %>
+      </div>
+    </div>
+<% end -%>
