@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :orders
   #get 'store/index'
   #root to: 'visitors#index'
   root to:'store#index'
