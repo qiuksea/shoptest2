@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -18,9 +19,10 @@ class OrdersController < ApplicationController
   def new
     if @cart.line_items.empty?
        redirect_to root_url, notice: "Your cart is empty."
-       return
+       return #without it you will get a double render error because your  controller will attempt to both redirect and render output.
     end
-    @order = Order.new
+
+    @order = User.orders.new
   end
 
   # GET /orders/1/edit
@@ -30,17 +32,22 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
+      if @cart.line_items.empty?
+        redirect_to root_url, notice: "Your cart is empty."
+        return #without it you will get a double render error because your  controller will attempt to both redirect and render output.
       end
-    end
+      @order = current_user.orders.new
+      @order.add_line_items_from_cart(@cart)
+
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to root_url, notice: 'Order was successfully created.' }
+          format.json { render :show, status: :created, location: @order }
+        else
+          format.html { render :new }
+          format.json { render json: @order.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   # PATCH/PUT /orders/1

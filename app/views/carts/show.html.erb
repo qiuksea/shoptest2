@@ -26,5 +26,5 @@
 </table>
 <%= link_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger active", role: "button" %>
 <%= link_to 'Continue Shopping', root_path, role: "button", class: "btn btn-primary active" %>
-<%= link_to "Checkout", new_order_path, role: "button", class: "btn btn-success active" %>
+<%= link_to "Checkout", orders_path, mthod: :post, role: "button", class: "btn btn-success active" %>
 

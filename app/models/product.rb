@@ -6,6 +6,7 @@ class Product < ActiveRecord::Base
                                 reject_if: proc { |attributes| attributes['image'].blank? } # it points to picture model attrs
 
   has_many :line_items
+  has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
   validates :title, presence: true
   validates :basic_price, presence: true

@@ -1,4 +1,27 @@
 <p id="notice"><%= notice %></p>
-
+<table class="table table-bordered">
+  <tr>
+    <th>Title</th>
+    <th>Quantity</th>
+    <th>Unit Price</th>
+    <th>Total Price</th>
+  </tr>
+  <% @line_items.each do |item| %>
+      <tr>
+        <td>
+          <%= item.product.title %>
+          <%= link_to "remove", line_item_path(item), method: :delete,
+                      title: "Click to remove this item",
+                      data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs" %></td>
+        <td><%= item.quantity %> </td>
+        <td><%= number_to_currency(item.unit_price, :locale => 'en-GB') %></td>
+        <td><%= number_to_currency(item.total_price, :locale => 'en-GB') %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td colspan="3">Total</td>
+    <td><%= number_to_currency(@cart.line_items_total, :locale => 'en-GB') %></td>
+  </tr>
+</table>
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

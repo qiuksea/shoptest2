@@ -1,6 +1,7 @@
 class LineItem < ActiveRecord::Base
   belongs_to :product
   belongs_to :cart
+  belongs_to :order
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :product_present
@@ -10,7 +11,7 @@ class LineItem < ActiveRecord::Base
 
   def unit_price
     if persisted?
-      self[:unit_price]
+      self[:unit_price]   #in case price is changed  during process
     else
       product.sold_price.present? ? product.sold_price : product.basic_price #condition ? if_true : if_false
     end
