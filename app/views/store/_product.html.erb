@@ -1,6 +1,6 @@
 <div class="thumbnail">
   <%# @product.product_pictures.each do |picture| %><!-- for simple, only show first one-->
-      <%=  display_image_file(product.product_pictures[0]) %><br />
+      <%=  link_to display_image_file(product.product_pictures[0]), store_path(product.id) %><br />
   <%# end %>
   <div class="caption-full">
     <%= display_current_price(product.basic_price, product.sold_price) %>
