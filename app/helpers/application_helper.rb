@@ -8,9 +8,16 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields btn btn-info", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
-  def display_image_file(image_file_object)    #for product-image
+  def display_image_file(image_file_object)    #for product-image    # can be extended to other type of fiels
     if image_file_object.present? && image_file_object.image_content_type =~ /^image/
       image_tag image_file_object.image.url(:large), class: "img-responsive"
+      # bootstrap class: img-responsive- shrink image when smaller screen
+    end
+  end
+
+  def display_sm_image_file(image_file_object)    #for product-image
+    if image_file_object.present? && image_file_object.image_content_type =~ /^image/
+      image_tag image_file_object.image.url(:thumb), class: "img-responsive"
       # bootstrap class: img-responsive- shrink image when smaller screen
     end
   end

@@ -1,6 +1,3 @@
-<% if notice %>
-    <p id="notice"><%= notice %></p>
-<% end %>
 <h2>Your Cart</h2>session id: <%= session[:cart_id]%>
 
 <table class="table table-bordered">
@@ -9,15 +6,17 @@
     <th>Quantity</th>
     <th>Unit Price</th>
     <th>Total Price</th>
-    <th>Action</th>
   </tr>
   <% @line_items.each do |item| %>
       <tr>
-        <td><%= item.product.title %></td>
+        <td>
+          <%= item.product.title %>
+          <%= link_to "remove", line_item_path(item), method: :delete,
+                      title: "Click to remove this item",
+                      data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs" %></td>
         <td><%= item.quantity %> </td>
         <td><%= number_to_currency(item.unit_price, :locale => 'en-GB') %></td>
         <td><%= number_to_currency(item.total_price, :locale => 'en-GB') %></td>
-        <td><%= link_to "Remove", line_item_path(item), method: :delete, data: {confirm: 'Are you sure?' }%></td>
       </tr>
   <% end %>
   <tr>
@@ -25,4 +24,6 @@
       <td><%= number_to_currency(@cart.line_items_total, :locale => 'en-GB') %></td>
   </tr>
 </table>
-<%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger active", role: "button" %>
+<%= link_to 'Continue Shopping', root_path, role: "button", class: "btn btn-primary active" %>
+
