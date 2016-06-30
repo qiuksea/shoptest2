@@ -9,7 +9,7 @@
 <div class="col-md-9">
   <% @products.each do |product| %>
       <tr id="product-<%=product.id%>">
-        <%= render partial: "store/product", locals: {product: product}%>
+        <%= render partial: "/store/product", locals: {product: product}%>
       </tr>
   <% end %>
 </div>

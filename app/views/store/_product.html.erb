@@ -1,14 +1,12 @@
 <div class="thumbnail">
   <%# @product.product_pictures.each do |picture| %><!-- for simple, only show first one-->
-      <%=  link_to display_image_file(product.product_pictures[0]), store_path(product.id) %><br />
+  <%=  link_to display_image_file(product.product_pictures[0]), store_path(product.id) %>
   <%# end %>
-  <div class="caption-full">
-    <%= display_current_price(product.basic_price, product.sold_price) %>
-    <h4><%= link_to product.title, store_path(product.id) %></a></h4>
-    <p>
-      <%= truncate( sanitize(product.description), length: 100, separator: ' ') %>
-    </p>
-
-  </div>
-
+      <div class="caption-full">
+        <h3><%= link_to product.title, store_path(product.id) %></h3>
+        <%= display_current_price(product.basic_price, product.sold_price) %>
+        <p>
+          <%= truncate(sanitize(product.description), length: 100, separator: ' ') %>
+        </p>
+      </div>
 </div>
