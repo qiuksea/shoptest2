@@ -4,8 +4,9 @@
   <td><%= number_to_currency(product.basic_price, :locale => 'en-GB')  %></td>
   <td><%= number_to_currency(product.sold_price, :locale => 'en-GB')  %></td>
   <td><%= product.active  %></td>
+  <td><%= product.product_stock %></td>
   <td>
-    <%= link_to 'Edit', edit_admin_product_path(product) %> |
-    <%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to 'Edit', edit_admin_product_path(product), class: "btn btn-primary active"  %>
+    <%= link_to 'Destroy', [:admin, product], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger active"  %>
   </td>
 </tr>
