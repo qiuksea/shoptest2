@@ -6,8 +6,15 @@ class LineItem < ActiveRecord::Base
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validate :product_present
   validate :cart_present
+  #validate :has_enough_products
 
   before_save :finalize
+
+  # def has_enough_products # in stock > required quantity
+  #   if product.product_stock < quantity
+  #     errors.add_to_base("Product sold out.")
+  #   end
+  # end
 
   def unit_price
     if persisted?
