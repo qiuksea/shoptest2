@@ -1,5 +1,5 @@
-<h1>New Order</h1>
+<h1>Your Order</h1>
 
-<%= render 'form' %>
+<%= render partial: "shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
 
-<%= link_to 'Back', orders_path %>
+<%= link_to "Way to Pay", orders_path, method: :post, role: "button", class: "btn btn-success active" %>

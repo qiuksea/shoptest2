@@ -12,7 +12,6 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-    @line_items = @cart.line_items
   end
 
   # # GET /carts/new
@@ -61,7 +60,7 @@ class CartsController < ApplicationController
     session.delete(:cart_id)
     #session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to store_path, notice: 'Your cart is currently empty.' }
+      format.html { redirect_to root_url, notice: 'Your cart is currently empty.' }
       format.json { head :no_content }
     end
   end
