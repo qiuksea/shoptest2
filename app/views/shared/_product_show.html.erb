@@ -8,4 +8,5 @@
 <div id="product-<%= product.id%>">
   <p><%= product.description.html_safe %></p>
   <%= display_current_price(product.basic_price, product.sold_price) %>
+  <%#= display_price_discount(product.basic_price, product.sold_price) %>
 </div>

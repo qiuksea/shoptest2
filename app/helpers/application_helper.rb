@@ -23,11 +23,19 @@ module ApplicationHelper
   end
 
   def  display_current_price(basic_price, sold_price) #for product
-    if sold_price.present?
-      content_tag(:h5, content_tag(:del, "Was: " + number_to_currency(basic_price, :locale => 'en-GB')), class: "pull-right")+
-          content_tag(:h4, "Now: " + number_to_currency(sold_price, :locale => 'en-GB'), class: "pull-right")
+    if sold_price.present? && basic_price > 0 && basic_price != sold_price
+          content_tag(:h5, content_tag(:del, "Was: " + number_to_currency(basic_price, :locale => 'en-GB'))) +
+          content_tag(:h4, "Now: " + number_to_currency(sold_price, :locale => 'en-GB')) + "" +
+          content_tag(:p, number_to_percentage((sold_price.to_f/basic_price)*100, precision: 0) + " off", class: "discount")
     else
-      content_tag(:h4, number_to_currency(basic_price, :locale => 'en-GB'), class: "pull-right")
+      content_tag(:h4, number_to_currency(basic_price, :locale => 'en-GB'))
     end
   end
+
+
+  # def display_price_discount(original_price, sold_price)
+  #   if sold_price.present? && original_price > 0
+  #     content_tag(:h2, number_to_percentage((sold_price.to_f/original_price)*100, precision: 0), class: "discount")
+  #   end
+  # end
 end
