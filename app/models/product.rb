@@ -9,7 +9,9 @@ class Product < ActiveRecord::Base
   has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
   validates :title, presence: true
-  validates :basic_price, presence: true
+  validates :basic_price, presence: true, numericality: {greater_than_or_equal_to: 0.01}
+  validates :sold_price, :allow_nil => true, numericality: {greater_than_or_equal_to: 0.01}
+  validates :product_stock, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
   private
    # ensure that there are no line items referencing this product
