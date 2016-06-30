@@ -1,6 +1,7 @@
 <%= render partial: "shared/product_show", locals: {product: @product} %>
 
+<p>Total Stock: <b><%= @product.product_stock %></b></p>
 <p>Listed on <%= @product.created_at %> by <%#= product.user.username %></p>
 
-<%= link_to 'Edit', edit_admin_product_path(@product) %> |
-<%= link_to 'Back', admin_products_path %>
+<%= link_to 'Edit', edit_admin_product_path(@product), role: "button", class: "btn btn-info active"  %>
+<%= link_to 'Back', admin_products_path, role: "button", class: "btn btn-success active"  %>
