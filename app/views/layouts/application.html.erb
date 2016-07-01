@@ -3,15 +3,16 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Shoptest2" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Shoptest2" %>">
+    <meta name="description" content="<%= content_for?(:title) ? yield(:title) : "Shoptest2" %>">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="<%= controller.controller_name %>">
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+
     <main role="main">
       <div class="container"><!-- container: fixed width, container-fluid: fill in the whole screen -->
         <div class="row">
@@ -19,6 +20,7 @@
           <%= yield %>
         </div>
       </div>
+
       <div class="container">
         <hr>
         <!-- Footer -->
