@@ -1,0 +1,12 @@
+<% line_items.each do |line_item| %>
+    <tr>
+      <td>
+        <%= line_item.product.title %>
+        <%= link_to "remove", line_item_path(line_item), method: :delete,
+                    title: "Click to remove this item",
+                    data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs active" %></td>
+      <td><%= line_item.quantity %> </td>
+      <td><%= number_to_currency(line_item.unit_price, :locale => 'en-GB') %></td>
+      <td><%= number_to_currency(line_item.total_price, :locale => 'en-GB') %></td>
+    </tr>
+<% end %>
