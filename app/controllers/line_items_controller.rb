@@ -2,6 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  #before_action :has_enough_products
 # GET
 
   # GET /line_items
@@ -29,18 +30,30 @@ class LineItemsController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     quantity = params[:product_quantity].to_i
+    #check in stock > required quantity
+    #if product.product_stock >= quantity
     @line_item = @cart.add_product(product.id, quantity)
+    # elsif product.product_stock < quantity
+    #   item is not create
+    # elsif product.stock = 0
+    #   sold out
+    #   item is not create
+    # end
 
     respond_to do |format|
-      if @line_item.save
-        format.html { redirect_to @line_item.cart }
-        format.json { render :show, status: :created, location: @line_item }
-      else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
-      end
+        if @line_item.save
+          format.html { redirect_to @line_item.cart }
+          format.json { render :show, status: :created, location: @line_item }
+          format.js
+        else
+          format.html { render :new }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
     end
-  end
+    # else
+    #    flash[:notice] = "Sold out"
+    #    redirect_to store_path(product)
+    end
 
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
@@ -59,7 +72,6 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    @line_item = @cart.line_items.find(params[:id])
     @line_item.destroy
     @line_items = @cart.line_items
     respond_to do |format|
@@ -69,13 +81,14 @@ class LineItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
     def set_line_item
       @line_item = LineItem.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
       params.require(:line_item).permit(:product_id, :cart_id, :quantity, :unit_price, :total_price)
     end
+
 end
