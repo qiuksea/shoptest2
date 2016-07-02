@@ -6,7 +6,7 @@
     <a href="#" class="list-group-item">Category 3</a>
   </div>
   <% if @cart.present? %>
-     <%= link_to "Your Cart", cart_path(session[:cart_id]), role: "button", class: "btn btn-success active" %>
+     <%= link_to "My Cart", cart_path(session[:cart_id]), role: "button", class: "btn btn-success active" %>
   <% end %>
 </div>
 <div class="col-md-9">

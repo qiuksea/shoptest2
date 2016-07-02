@@ -1,4 +1,4 @@
-<h2>Your Cart</h2>session id: <%= session[:cart_id]%>
+<h2>My Cart</h2>session id: <%= session[:cart_id]%>
 <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
 
 <%= link_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger active", role: "button" %>
