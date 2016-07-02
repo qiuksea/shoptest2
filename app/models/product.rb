@@ -7,6 +7,8 @@ class Product < ActiveRecord::Base
 
   has_many :line_items
   has_many :orders, through: :line_items
+  belongs_to :product_category
+
   before_destroy :ensure_not_referenced_by_any_line_item
   validates :title, presence: true
   validates :basic_price, presence: true, numericality: {greater_than_or_equal_to: 0.01}
