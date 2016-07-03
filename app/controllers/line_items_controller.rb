@@ -2,7 +2,6 @@ class LineItemsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:create, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
-  #before_action :has_enough_products
 # GET
 
   # GET /line_items
@@ -28,32 +27,24 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    product = Product.find(params[:product_id])
-    quantity = params[:product_quantity].to_i
-    #check in stock > required quantity
-    #if product.product_stock >= quantity
-    @line_item = @cart.add_product(product.id, quantity)
-    # elsif product.product_stock < quantity
-    #   item is not create
-    # elsif product.stock = 0
-    #   sold out
-    #   item is not create
-    # end
-
-    respond_to do |format|
-        if @line_item.save
-          format.html { redirect_to @line_item.cart }
-          format.json { render :show, status: :created, location: @line_item }
-          format.js
-        else
-          format.html { render :new }
-          format.json { render json: @line_item.errors, status: :unprocessable_entity }
-        end
-    end
-    # else
-    #    flash[:notice] = "Sold out"
-    #    redirect_to store_path(product)
-    end
+      product = Product.find(params[:product_id])
+      quantity = params[:product_quantity].to_i
+      item_status = @cart.add_product(product, product.id, quantity)
+      @notice = ""
+      if  item_status == 1 #enough product && > quantity
+        @notice = "You have added " + quantity.to_s + " " + product.title + "!"
+        @add_class = "alert-success"
+      elsif item_status == 0 # sold out
+        @notice = product.title + " -- Sold out"
+        @add_class = "alert-warning"
+      elsif item_status == -1 #not enough
+        @notice = "Not enough stock. Only " + product.product_stock.to_s + " " + product.title + " left in stock !"
+        @add_class = "alert-danger"
+      end
+      respond_to do |format|
+        format.js
+      end
+  end
 
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
@@ -91,5 +82,6 @@ class LineItemsController < ApplicationController
     def line_item_params
       params.require(:line_item).permit(:product_id, :cart_id, :quantity, :unit_price, :total_price)
     end
+
 
 end

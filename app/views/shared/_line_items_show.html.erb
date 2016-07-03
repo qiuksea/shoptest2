@@ -5,9 +5,14 @@
     <th>Unit Price</th>
     <th>Total Price</th>
   </tr>
-  <%= render partial: "/shared/line_item", locals: {line_items: @cart.line_items} %>
-  <tr>
-    <td colspan="3">Total</td>
-    <td><%= number_to_currency(this_parent.line_items_total, :locale => 'en-GB') %></td>
-  </tr>
+  <% if @cart.line_items.present? %>
+      <%= render partial: "/shared/line_item", locals: {line_items: @cart.line_items} %>
+      <tr>
+        <td colspan="3">Cart Total</td>
+        <td><%= number_to_currency(this_parent.line_items_total, :locale => 'en-GB') %></td>
+      </tr>
+  <% else %>
+      <tr><td colspan="4">No item </td></tr>
+  <% end %>
+
 </table>

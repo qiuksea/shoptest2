@@ -20,4 +20,8 @@ Product.create! id: 4, title: "Clementine Or Sweet Easy Peeler Pack 600G", descr
 Product.create! id: 5, title: "Organic Fair Trade Bananas 6 Pack",description: "Them third thing is image all day stars subdue. The fowl. Moving tree were you air give seasons without.",
                         basic_price: 1.79, sold_price: 1.39, active: true
 Product.create! id: 6, title: "Green Seedless Grapes Pack 500G", description: "Moving sea, herb. Green saying, us second good female kind seas fourth.",
-                        basic_price: 1.99, sold_price:1.50 , active: true
+    basic_price: 1.99, sold_price:1.50 , active: true
+Product.create! id: 7, title: "Book 1", description: "Moving sea, herb. Green saying, us second good female kind seas fourth.",
+                basic_price: 25,  active: true
+Product.create! id: 8, title: "Book 2", description: "Moving sea, herb. Green saying, us second good female kind seas fourth.",
+                basic_price: 30,  active: true

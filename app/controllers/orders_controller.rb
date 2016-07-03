@@ -44,6 +44,7 @@ class OrdersController < ApplicationController
       respond_to do |format|
         if @order.save!
           session.delete(:cart_id)
+          @order.reduce_stock_from_product(@cart)#reduce product stock
           format.html { redirect_to root_url(@order), notice: 'Order was successfully created.' }
           format.json { render :show, status: :created, location: @order }
         else

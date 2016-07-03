@@ -1,26 +1,22 @@
 <div class="col-md-8" id="product-detail">
-    <%= render partial: "shared/product_show", locals: {product: @product} %>
-
-    <%= form_tag(line_items_path, remote: true, class: "form-inline") do -%>
-        <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <%= select_tag "product_quantity", options_for_select((1..15).to_a, 1)%>
-          <%= hidden_field_tag 'product_id',  @product.id %>
-        </div>
-        <div class="form-group">
-            <%= submit_tag 'Add to Cart', class: "btn btn-success" %><!-- , disabled: @product.product_stock >0 ? false:true -->
-        </div>
-    <% end -%>
+  <%= render partial: "shared/product_show", locals: {product: @product} %>
 </div>
+
 <div class="col-md-4">
-  <h3>My Cart</h3>
-  <div id="shopping-cart">
-      <% unless session[:cart_id].present? %>
-        <p> You have not chosen any product.</p>
-      <% else %>
-         <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
-      <% end %>
+
+  <div id="cart-form">
+    <h4>Add to Your Cart</h4>
+    <%= render partial: "add_cart_form" %>
   </div>
+  <div id="cart-status"> </div>
+
+  <div id="shopping-cart">
+    <% if @cart.present? %>
+        <h3>My Cart</h3>
+        <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
+    <% end %>
+  </div>
+
 </div>
 
 

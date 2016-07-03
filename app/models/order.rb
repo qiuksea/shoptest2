@@ -9,4 +9,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def reduce_stock_from_product(cart)
+    cart.lin_items.each do |item|
+      item.update_product_stock
+    end
+  end
+
 end

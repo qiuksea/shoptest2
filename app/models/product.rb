@@ -15,6 +15,15 @@ class Product < ActiveRecord::Base
   validates :sold_price, :allow_nil => true, numericality: {greater_than_or_equal_to: 0.01}
   validates :product_stock, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
+  def has_enough_products(quantity) # stock has enough required quantity for line-item?
+    if product_stock == 0
+      return 0 # sold out
+    elsif product_stock >= quantity
+      return 1 #enough
+    elsif product_stock < quantity
+      return -1 #not enough
+    end
+  end
 
 
   private
