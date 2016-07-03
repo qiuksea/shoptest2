@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create, :destroy]
+  before_action :set_cart, only: [:create, :update, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 # GET
 
@@ -49,15 +49,41 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    respond_to do |format|
-      if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
-      else
-        format.html { render :edit }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+    if params[:commit] == 'Add'
+      current_quantity = params[:product_quantity].to_i + 1
+      stock_status = @line_item.product.has_enough_products(current_quantity)
+      if stock_status == 1
+        @line_item.quantity += 1
+        @notice = "Add"
+        @add_class = "alert-success"
+      elsif stock_status == 0
+        @notice = "Sold out already. Please remove it."
+        @add_class = "alert-warning"
+        @line_item.quantity = 0
+      elsif stock_status == -1
+        @notice  = "Only " + @line_item.product.product_stock.to_s + "left"
+        @add_class = "alert-danger"
       end
     end
+      @line_item.save!
+      respond_to do |format|
+        format.js
+      end
+
+    # if params[:commit] == 'Reduce'
+    #   @line_item.quantity = params[:product_quantity].to_i - 1
+    #
+    # end
+
+    # respond_to do |format|
+    #   if @line_item.update(line_item_params)
+    #     format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @line_item }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @line_item.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /line_items/1

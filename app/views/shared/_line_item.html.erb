@@ -1,15 +1,27 @@
-<% line_items.each do |line_item| %>
-    <% if line_item.present? %>
-    <tr>
+    <tr id="line-item-<%= line_item.id %>">
       <td>
         <%= line_item.product.title %>
         <%= link_to "remove", line_item_path(line_item), method: :delete, remote: true,
                         title: "Click to remove this item",
                         data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs active" %>
       </td>
-      <td><%= line_item.quantity %> </td>
+      <td>
+        <% if controller_name.present? && controller_name == "carts" %>
+            <%= form_tag(line_item_path(line_item), method: :put, remote: true, class: "form-inline") do -%>
+                <div class="form-group">
+                  <%= text_field_tag "product_quantity", line_item.quantity %>
+                  <%= hidden_field_tag 'product_id',  line_item.product.id %>
+                </div>
+                <div class="form-group">
+                  <%= submit_tag 'Add', class: "btn btn-success" %>
+                  <%= submit_tag 'Reduce', class: "btn btn-success" %>
+                </div>
+            <% end -%>
+            <div id="cart-status"></div>
+        <% else%>
+            <%= line_item.quantity %>
+        <% end %>
+      </td>
       <td><%= number_to_currency(line_item.unit_price, :locale => 'en-GB') %></td>
       <td><%= number_to_currency(line_item.total_price, :locale => 'en-GB') %></td>
     </tr>
-    <% end %>
-<% end %>

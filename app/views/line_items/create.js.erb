@@ -1,4 +1,4 @@
-$("#cart-status").html("<%= j(render partial: "/store/status", locals: {notice: @notice, add_class: @add_class}) %>");
+$("#cart-status").html("<%= j(render partial: "/shared/status", locals: {notice: @notice, add_class: @add_class}) %>");
 
 $("#shopping-cart").html("<%= j (render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart})%>");
 
