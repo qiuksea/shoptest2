@@ -18,13 +18,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    if @cart.line_items.empty?
-       redirect_to root_url, notice: "Your cart is empty."
-       return #without it you will get a double render error because your  controller will attempt to both redirect and render output.
-    end
-
-    @order = current_user.orders.new
-
   end
 
   # GET /orders/1/edit

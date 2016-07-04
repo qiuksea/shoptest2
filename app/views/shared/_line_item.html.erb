@@ -1,9 +1,11 @@
     <tr id="line-item-<%= line_item.id %>">
       <td>
         <%= line_item.product.title %>
-        <%= link_to "remove", line_item_path(line_item), method: :delete, remote: true,
-                        title: "Click to remove this item",
-                        data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs active" %>
+        <% unless controller_name.present? && controller_name == "orders" %>
+            <%= link_to "remove", line_item_path(line_item), method: :delete, remote: true,
+                            title: "Click to remove this item",
+                            data: {confirm: 'Are you sure?' }, class: "btn btn-info btn-xs active" %>
+        <% end %>
       </td>
       <td>
         <% if controller_name.present? && controller_name == "carts" %>
