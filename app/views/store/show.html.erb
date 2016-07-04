@@ -11,12 +11,14 @@
   <div id="cart-status"> </div>
 
 
-  <% if @cart.present? %>
-      <h3><%= link_to 'My Cart', cart_path(@cart), role: "button", class: "btn btn-primary active" %></h3>
-      <div id="shopping-cart">
-        <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
-      </div>
-  <% end %>
+
+  <!--<h3><%#= link_to 'My Cart', cart_path(@cart), role: "button", class: "btn btn-primary active" %></h3>-->
+  <div id="shopping-cart">
+    <% if @cart.present? %>
+        <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart, controller_name: "stores"} %>
+    <% end %>
+  </div>
+
 
 </div>
 

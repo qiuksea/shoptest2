@@ -30,7 +30,6 @@ class LineItemsController < ApplicationController
       product = Product.find(params[:product_id])
       quantity = params[:product_quantity].to_i
       item_status = @cart.add_product(product, product.id, quantity)
-      @notice = ""
       if  item_status == 1 #enough product && > quantity
         @notice = "You have added " + quantity.to_s + " " + product.title + "!"
         @add_class = "alert-success"

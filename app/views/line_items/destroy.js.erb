@@ -1,1 +1,2 @@
-$("#shopping-cart").html("<%= j (render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart})%>");
+$("#shopping-cart").html("<%= j (render partial: "/shared/line_items_show",
+                        locals: {line_items: @cart.line_items, this_parent: @cart, controller_name: "carts"})%>");
