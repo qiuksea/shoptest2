@@ -1,6 +1,7 @@
 $("#cart-status").html("<%= j(render partial: "/shared/status", locals: {notice: @notice, add_class: @add_class}) %>");
 
-$("#shopping-cart").html("<%= j (render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart})%>");
+$("#shopping-cart").html("<%= j (render partial: "/shared/line_items_show",
+                    locals: {line_items: @cart.line_items, this_parent: @cart , controller_name: "stores"})%>");
 
 //$("#cart-nav").append("<%#= j render "/layouts/nav_cart"%>");
 
