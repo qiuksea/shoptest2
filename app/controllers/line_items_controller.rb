@@ -52,28 +52,23 @@ class LineItemsController < ApplicationController
     if params[:commit] == 'Add'
       current_quantity = params[:product_quantity].to_i + 1
       stock_status = @line_item.product.has_enough_products(current_quantity)
-      if stock_status == 1
-        @line_item.quantity += 1
-        @notice = "Add"
-        @add_class = "alert-success"
-      elsif stock_status == 0
-        @notice = "Sold out already. Please remove it."
-        @add_class = "alert-warning"
-        @line_item.quantity = 0
-      elsif stock_status == -1
-        @notice  = "Only " + @line_item.product.product_stock.to_s + "left"
+      update_quantity(stock_status, "add")
+    end
+
+    if params[:commit] == 'Reduce'
+      if params[:product_quantity].to_i > 1 #at least 1
+        current_quantity = params[:product_quantity].to_i - 1
+          stock_status = @line_item.product.has_enough_products(current_quantity)
+          update_quantity(stock_status, "reduce")
+      else #1
+        @notice = "Only one in your cart. You can only remove it."
         @add_class = "alert-danger"
       end
     end
-      @line_item.save!
-      respond_to do |format|
-        format.js
-      end
 
-    # if params[:commit] == 'Reduce'
-    #   @line_item.quantity = params[:product_quantity].to_i - 1
-    #
-    # end
+    respond_to do |format|
+      format.js
+    end
 
     # respond_to do |format|
     #   if @line_item.update(line_item_params)
@@ -109,5 +104,28 @@ class LineItemsController < ApplicationController
       params.require(:line_item).permit(:product_id, :cart_id, :quantity, :unit_price, :total_price)
     end
 
+  def update_quantity(stock_status, user_action)
+    if stock_status == 1
+      if user_action == "add"
+        @line_item.quantity += 1
+        @notice = "You added one item. There are " +  @line_item.quantity.to_s + " in the cart."
+      elsif user_action == "reduce"
+          @line_item.quantity -= 1
+          @notice = "You reduce one item. There are " +  @line_item.quantity.to_s + " in the cart."
+      end
+      @add_class = "alert-success"
+      @line_item.save!
+    end
+    if stock_status == 0
+      @notice = "Sold out already. Remove it."
+      @add_class = "alert-warning"
+      @line_item.destroy
+    end
+    if stock_status == -1
+      @notice  = "Not enough stock. Only " + @line_item.product.product_stock.to_s + " item left in the stock."
+      @add_class = "alert-danger"
+    end
+    return @notice,@add_class
+  end
 
 end

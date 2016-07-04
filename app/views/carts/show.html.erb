@@ -1,4 +1,5 @@
 <h2>My Cart</h2>session id: <%= session[:cart_id]%>
+<div id="cart-status"> </div>
 <div id="shopping-cart">
     <%= render partial: "/shared/line_items_show", locals: {line_items: @cart.line_items, this_parent: @cart} %>
 </div>
