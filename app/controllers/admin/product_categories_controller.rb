@@ -30,6 +30,7 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
       if @product_category.save
         format.html { redirect_to [:admin,@product_category], notice: 'Product category was successfully created.' }
         format.json { render :show, status: :created, location: @admin_product_category }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @product_category.errors, status: :unprocessable_entity }
@@ -44,6 +45,7 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
       if @product_category.update(product_category_params)
         format.html { redirect_to [:admin,@product_category], notice: 'Product category was successfully updated.' }
         format.json { render :show, status: :ok, location: [:admin,@product_category] }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @product_category.errors, status: :unprocessable_entity }
@@ -58,6 +60,7 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
     respond_to do |format|
       format.html { redirect_to [:admin,product_categories_url], notice: 'Product category was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
