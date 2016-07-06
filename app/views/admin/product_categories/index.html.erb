@@ -1,11 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Admin Product Categories</h1>
+<h1>Product Categories</h1>
 
-<table>
+<table  class="table table-hover table-bordered">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>Name</th>
+      <th>Action</th>
     </tr>
   </thead>
 
@@ -13,9 +14,11 @@
     <% @product_categories.each do |product_category| %>
       <tr>
         <td><%= product_category.name %></td>
-        <td><%= link_to 'Show', [:admin, product_category] %></td>
-        <td><%= link_to 'Edit', edit_admin_product_category_path(product_category) %></td>
-        <td><%= link_to 'Destroy', [:admin, product_category] , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', [:admin, product_category], class: "btn btn-primary active"  %>
+          <%= link_to 'Edit', edit_admin_product_category_path(product_category), class: "btn btn-primary active"  %>
+          <%= link_to 'Destroy', [:admin, product_category] , method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary active"  %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -23,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Product category', new_admin_product_category_path %>
+<%= link_to 'New', new_admin_product_category_path, class: "btn btn-primary active" %>
