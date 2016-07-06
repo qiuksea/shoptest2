@@ -107,10 +107,10 @@ class LineItemsController < ApplicationController
     if stock_status == 1
       if user_action == "add"
         @line_item.quantity += 1
-        @notice = "You added one item. There are " +  @line_item.quantity.to_s + " in the cart."
+        @notice = "You added one item. There is(are) " +  @line_item.quantity.to_s + " item in the cart."
       elsif user_action == "reduce"
           @line_item.quantity -= 1
-          @notice = "You reduce one item. There are " +  @line_item.quantity.to_s + " in the cart."
+          @notice = "You reduced one item. There is(are) " +  @line_item.quantity.to_s + " item in the cart."
       end
       @add_class = "alert-success"
       @line_item.save!
