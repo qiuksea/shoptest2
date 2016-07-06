@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160702004608) do
     t.integer  "cart_id",     limit: 4
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
-    t.integer  "quantity",    limit: 4,                         default: 0
+    t.integer  "quantity",    limit: 4,                         default: 1
     t.decimal  "unit_price",            precision: 8, scale: 2
     t.decimal  "total_price",           precision: 8, scale: 2
     t.integer  "order_id",    limit: 4
