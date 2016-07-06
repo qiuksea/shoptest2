@@ -15,7 +15,6 @@
       <tr>
         <td><%= product_category.name %></td>
         <td>
-          <%= link_to 'Show', [:admin, product_category], class: "btn btn-primary active"  %>
           <%= link_to 'Edit', edit_admin_product_category_path(product_category), class: "btn btn-primary active"  %>
           <%= link_to 'Destroy', [:admin, product_category] , method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary active"  %>
         </td>
