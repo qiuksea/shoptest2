@@ -1,0 +1,7 @@
+<tr id="category_<%= product_category.id %>">
+  <td><%= product_category.name %></td>
+  <td>
+    <%= link_to 'Edit', [:edit, :admin, product_category], remote: true, class: "btn btn-sm btn-primary active"  %>
+    <%= link_to 'Destroy', [:admin, product_category], remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger active"  %>
+  </td>
+</tr>

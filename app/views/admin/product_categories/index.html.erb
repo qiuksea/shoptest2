@@ -1,28 +1,18 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Product Categories</h1>
 
 <table  class="table table-hover table-bordered">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Action</th>
+      <th>Actions</th>
     </tr>
   </thead>
 
-  <tbody>
-    <% @product_categories.each do |product_category| %>
-      <tr>
-        <td><%= product_category.name %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_product_category_path(product_category), class: "btn btn-primary active"  %>
-          <%= link_to 'Destroy', [:admin, product_category] , method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary active"  %>
-        </td>
-      </tr>
-    <% end %>
+  <tbody id="categories">
+    <%= render @product_categories %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New', new_admin_product_category_path, class: "btn btn-primary active" %>
+<div class="well">
+    <%= link_to 'New', new_admin_product_category_path, remote: true, class: "btn btn-primary active" %>
+</div>
+<%= render :partial => "category_modal", :locals => {:heading => "Product Category"} %>

@@ -1,0 +1,6 @@
+$('.modal-body').html('<%= j(render  "admin/product_categories/form") %>');
+$("#modal-window").modal("show");
+// Set focus to the first element
+$('#modal-window').on('shown.bs.modal', function () {
+    $('.first_input').focus()
+})

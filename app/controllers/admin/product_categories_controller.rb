@@ -25,15 +25,13 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
   # POST /admin/product_categories.json
   def create
     @product_category = ProductCategory.new(product_category_params)
-
     respond_to do |format|
       if @product_category.save
-        format.html { redirect_to [:admin,@product_category], notice: 'Product category was successfully created.' }
-        format.json { render :show, status: :created, location: @admin_product_category }
+        format.html { redirect_to admin_product_categories_path, notice: 'Product category was successfully created.' }
+        format.json { head :no_content }
         format.js
       else
         format.html { render :new }
-        format.json { render json: @product_category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,7 +41,7 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
   def update
     respond_to do |format|
       if @product_category.update(product_category_params)
-        format.html { redirect_to [:admin,@product_category], notice: 'Product category was successfully updated.' }
+        format.html { redirect_to admin_product_categories_path, notice: 'Product category was successfully updated.' }
         format.json { render :show, status: :ok, location: [:admin,@product_category] }
         format.js
       else
@@ -58,9 +56,9 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
   def destroy
     @product_category.destroy
     respond_to do |format|
-      format.html { redirect_to [:admin,product_categories_url], notice: 'Product category was successfully destroyed.' }
-      format.json { head :no_content }
-      format.js
+        format.html { redirect_to [:admin,product_categories_url], notice: 'Product category was successfully destroyed.' }
+        format.json { head :no_content }
+        format.js
     end
   end
 
