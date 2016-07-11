@@ -1,9 +1,12 @@
 class Product < ActiveRecord::Base
-  default_scope { where(active: true).order('title, updated_at desc')}#deleted/inactive products aren't shown.
+  #default_scope { where(active: true).order('title, updated_at desc')}#deleted/inactive products aren't shown.
   has_many :product_pictures, :dependent => :destroy
   accepts_nested_attributes_for :product_pictures,
                                 allow_destroy: true,
                                 reject_if: proc { |attributes| attributes['image'].blank? } # it points to picture model attrs
+
+  scope :active, -> {where(active: true)}
+  scope :recent, -> {order('title, updated_at desc')}
 
   has_many :line_items
   has_many :orders, through: :line_items

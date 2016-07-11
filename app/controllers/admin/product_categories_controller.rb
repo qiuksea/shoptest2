@@ -4,7 +4,7 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
   # GET /admin/product_categories
   # GET /admin/product_categories.json
   def index
-    @product_categories = ProductCategory.all
+    @product_categories = ProductCategory.recent
   end
 
   # GET /admin/product_categories/1
