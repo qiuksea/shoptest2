@@ -32,6 +32,10 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
         format.js
       else
         format.html { render :new }
+        format.js {
+          render :template => "admin/product_categories/new.js.erb",
+                 :layout => false
+        }
       end
     end
   end
@@ -47,6 +51,10 @@ class Admin::ProductCategoriesController <  Admin::ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @product_category.errors, status: :unprocessable_entity }
+        format.js {
+          render :template => "admin/product_categories/edit.js.erb", #error info display
+                 :layout => false
+        }
       end
     end
   end
